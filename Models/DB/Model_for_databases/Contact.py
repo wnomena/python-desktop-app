@@ -1,5 +1,5 @@
 from sqlalchemy import ForeignKey, Integer, String
-from Contact import Base
+from Models.DB.Base import Base
 from sqlalchemy.orm import Mapped,mapped_column, relationship
 
 

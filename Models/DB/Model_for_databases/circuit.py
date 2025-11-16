@@ -1,7 +1,6 @@
 from sqlalchemy import ForeignKey, Integer, String
 from sqlalchemy.orm import DeclarativeBase,Mapped,mapped_column,relationship
-class Base(DeclarativeBase):
-    pass
+from Models.DB.Base import Base
 
 #creation de toutes les classes de models avant de faire une relation depuis sqlalchemy
 class Circuit(Base):
