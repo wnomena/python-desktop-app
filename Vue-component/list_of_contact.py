@@ -1,0 +1,1 @@
+# S'ssurer que il y a une application de messagerie d'ouverte sur le pc de l'utilisateurs pour une redirection lors de la reponse de contact
