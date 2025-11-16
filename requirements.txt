@@ -1,0 +1,8 @@
+customtkinter==5.2.2
+darkdetect==0.8.0
+greenlet==3.2.4
+packaging==25.0
+plyer==2.1.0
+PyMySQL==1.1.2
+SQLAlchemy==2.0.44
+typing_extensions==4.15.0
