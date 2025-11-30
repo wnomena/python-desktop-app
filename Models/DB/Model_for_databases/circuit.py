@@ -123,6 +123,7 @@ class Contact(Base):
     circuit = relationship("Circuit",back_populates="contact")
 
 class Contact_Model(BaseModel):
+    id:int | None = None
     name:str
     subject:str | None = None
     body:str
@@ -132,5 +133,24 @@ class Contact_Model(BaseModel):
     number_of_person:int | None = None
     total_price:int | None = None
 
-
+class Contact_Model_without_Pydantic():
+    def __init__(self,    id:int | None,
+    name:str,
+    subject:str | None,
+    body:str,
+    mail:str,
+    number:str | None,
+    begining:str | None,
+    number_of_person:int | None,
+    total_price:int | None,):
+        self.id = id
+        self.name = name,
+        self.subject = subject
+        self.body = body
+        self.mail = mail
+        self.number = number
+        self.begining = begining
+        self.number_of_person = number_of_person
+        self.total_price = total_price
+        
     

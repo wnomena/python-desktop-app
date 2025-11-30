@@ -248,7 +248,7 @@ class Ui_MainWindow(object):
     # setupUi
 
     def retranslateUi(self, MainWindow):
-        MainWindow.setWindowTitle(QCoreApplication.translate("MainWindow", u"MainWindow", None))
+        MainWindow.setWindowTitle(QCoreApplication.translate("MainWindow", u"Gestion de circuit", None))
         self.pushButton.setText(QCoreApplication.translate("MainWindow", u"Circuits", None))
         self.pushButton_2.setText(QCoreApplication.translate("MainWindow", u"Contact", None))
         self.pushButton_3.setText(QCoreApplication.translate("MainWindow", u"Configuration", None))
