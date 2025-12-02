@@ -1,5 +1,5 @@
 
-from models.circuits_models_database.circuit import Equipement_Model, Included_task_in_Price_Model, Itinerary_Model,Adrenaline_Model
+from Models.DB.Model_for_databases.circuit import Equipement_Model, Included_task_in_Price_Model, Itinerary_Model,Adrenaline_Model
 
 def know_index(element:list,id:int):
     for a in range(0,len(element)):

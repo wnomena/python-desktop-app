@@ -153,4 +153,19 @@ class Contact_Model_without_Pydantic():
         self.number_of_person = number_of_person
         self.total_price = total_price
         
+
     
+class User_of_Database_for_Sqlite(Base):
+    id:Mapped[int] = mapped_column(Integer,primary_key=True)
+    database_name:Mapped[str] = mapped_column(String,nullable=False)
+    database_password:Mapped[str] = mapped_column(String,nullable=False)
+    database_user:Mapped[str] = mapped_column(String,nullable=False)
+    database_port:Mapped[int] = mapped_column(Integer,nullable=False)
+    
+class User_of_Database_for_Sqlite_Mode:
+    def __init__(self,id:int,database_name:str,database_password:str,database_user:str,database_port:int):
+        self.id = id
+        self.database_name = database_name
+        self.database_password = database_password
+        self.database_user = database_user
+        self.database_port = database_port

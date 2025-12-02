@@ -4,3 +4,9 @@ class Result_model_function:
         self.code = code
         self.data = data
         self.error = error
+
+class Result_model_function_Sqlite:
+    def __init__(self,code:int,data:list[Result_model_function_Sqlite],error:str):
+        self.code = code
+        self.data = data
+        self.error = error

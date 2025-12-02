@@ -7,5 +7,8 @@ window = QMainWindow()
 ui = Ui_MainWindow()
 ui.setupUi(window)
 
-window.show()
-app.exec()
+
+if __name__ == "__main__":
+    window.show()
+    app.exec()
+
