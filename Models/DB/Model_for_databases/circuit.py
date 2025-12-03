@@ -169,3 +169,12 @@ class User_of_Database_for_Sqlite_Mode:
         self.database_password = database_password
         self.database_user = database_user
         self.database_port = database_port
+
+
+class Qtable_Model:
+    def __init__(self,id:int,name:str,subtitle:str,price:int):
+        self.id = id
+        self.name = name
+        self.subtitle = subtitle
+        self.price = price
+        

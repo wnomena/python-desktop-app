@@ -17,7 +17,7 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
     QPalette, QPixmap, QRadialGradient, QTransform)
 from PySide6.QtWidgets import (QApplication, QHBoxLayout, QHeaderView, QLabel,
     QMainWindow, QPushButton, QSizePolicy, QSpacerItem,
-    QTableView, QVBoxLayout, QWidget)
+    QTableWidget, QTableWidgetItem, QVBoxLayout, QWidget)
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
@@ -203,11 +203,18 @@ class Ui_MainWindow(object):
 
         self.verticalLayout.addWidget(self.label)
 
-        self.dynamic_table = QTableView(self.centralwidget)
-        self.dynamic_table.setObjectName(u"dynamic_table")
-        self.dynamic_table.setStyleSheet(u"border-color: rgb(36, 31, 49);")
+        self.for_dynamic_table = QTableWidget(self.centralwidget)
+        self.for_dynamic_table.setObjectName(u"for_dynamic_table")
+        self.for_dynamic_table.verticalHeader().setVisible(False)
+        self.for_dynamic_table.horizontalHeader().setVisible(False)
+        self.for_dynamic_table.setColumnCount(4)
+        self.for_dynamic_table.setRowCount(2)
+        self.for_dynamic_table.setItem(0,0,QTableWidgetItem("Id"))
+        self.for_dynamic_table.setItem(0,1,QTableWidgetItem("Title"))
+        self.for_dynamic_table.setItem(0,2,QTableWidgetItem("Subtitle"))
+        self.for_dynamic_table.setItem(0,3,QTableWidgetItem("Price"))
 
-        self.verticalLayout.addWidget(self.dynamic_table)
+        self.verticalLayout.addWidget(self.for_dynamic_table)
 
         self.verticalSpacer_2 = QSpacerItem(20, 40, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Expanding)
 
