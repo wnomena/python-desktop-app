@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'login.ui'
+## Form generated from reading UI file 'home.ui'
 ##
 ## Created by: Qt User Interface Compiler version 6.10.1
 ##
@@ -15,22 +15,34 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
     QFont, QFontDatabase, QGradient, QIcon,
     QImage, QKeySequence, QLinearGradient, QPainter,
     QPalette, QPixmap, QRadialGradient, QTransform)
-from PySide6.QtWidgets import (QApplication, QHBoxLayout, QPushButton, QSizePolicy,
-    QSpacerItem, QWidget)
+from PySide6.QtWidgets import (QApplication, QHBoxLayout, QMainWindow, QPushButton,QStackedWidget,
+    QSizePolicy, QSpacerItem, QWidget)
+from configuration import Ui_Configuration
 
-class Ui_Form(object):
-    def setupUi(self, Form):
-        if not Form.objectName():
-            Form.setObjectName(u"Form")
-        Form.resize(603, 300)
-        Form.setStyleSheet(u"background-color: rgb(154, 153, 150);")
-        self.horizontalLayout = QHBoxLayout(Form)
+class Ui_MainWindow(object):
+    
+    def __init__(self,MainWindow:QMainWindow):
+        super(Ui_MainWindow,self).__init__()
+        self.stack = QStackedWidget()
+        self.stack.addWidget(Ui_Configuration().setupUi(MainWindow))
+        self.setupUi(MainWindow)
+        
+    def click(self):
+        self.stack.currentIndex(0)
+    def setupUi(self, MainWindow):
+        if not MainWindow.objectName():
+            MainWindow.setObjectName(u"MainWindow")
+        MainWindow.resize(594, 250)
+        MainWindow.setStyleSheet(u"background-color: rgb(154, 153, 150);")
+        self.centralwidget = QWidget(MainWindow)
+        self.centralwidget.setObjectName(u"centralwidget")
+        self.horizontalLayout = QHBoxLayout(self.centralwidget)
         self.horizontalLayout.setObjectName(u"horizontalLayout")
-        self.horizontalSpacer = QSpacerItem(134, 20, QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Minimum)
+        self.horizontalSpacer = QSpacerItem(129, 20, QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Minimum)
 
         self.horizontalLayout.addItem(self.horizontalSpacer)
 
-        self.pushButton = QPushButton(Form)
+        self.pushButton = QPushButton(self.centralwidget)
         self.pushButton.setObjectName(u"pushButton")
         self.pushButton.setEnabled(True)
         sizePolicy = QSizePolicy(QSizePolicy.Policy.Fixed, QSizePolicy.Policy.Fixed)
@@ -39,6 +51,10 @@ class Ui_Form(object):
         sizePolicy.setHeightForWidth(self.pushButton.sizePolicy().hasHeightForWidth())
         self.pushButton.setSizePolicy(sizePolicy)
         self.pushButton.setMinimumSize(QSize(300, 0))
+
+
+        #fonction pour une tentative de changement de page
+        self.pushButton.clicked(self.click)
         palette = QPalette()
         brush = QBrush(QColor(255, 255, 255, 255))
         brush.setStyle(Qt.BrushStyle.SolidPattern)
@@ -80,18 +96,18 @@ class Ui_Form(object):
 
         self.horizontalLayout.addWidget(self.pushButton)
 
-        self.horizontalSpacer_2 = QSpacerItem(133, 20, QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Minimum)
+        self.horizontalSpacer_2 = QSpacerItem(129, 20, QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Minimum)
 
         self.horizontalLayout.addItem(self.horizontalSpacer_2)
 
+        MainWindow.setCentralWidget(self.centralwidget)
 
-        self.retranslateUi(Form)
+        self.retranslateUi(MainWindow)
 
-        QMetaObject.connectSlotsByName(Form)
+        QMetaObject.connectSlotsByName(MainWindow)
     # setupUi
 
-    def retranslateUi(self, Form):
-        Form.setWindowTitle(QCoreApplication.translate("Form", u"Madagascar_Tours", None))
-        self.pushButton.setText(QCoreApplication.translate("Form", u"Connexion", None))
+    def retranslateUi(self, MainWindow):
+        MainWindow.setWindowTitle(QCoreApplication.translate("MainWindow", u"Connexion", None))
+        self.pushButton.setText(QCoreApplication.translate("MainWindow", u"Connexion", None))
     # retranslateUi
-

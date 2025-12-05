@@ -1,13 +1,10 @@
-from PySide6.QtWidgets import QApplication, QMainWindow
+from PySide6.QtWidgets import QApplication, QMainWindow,QWidget
 from circuit_ui import Ui_MainWindow as circuit
-from configuration import Ui_MainWindow as config
+from home import Ui_MainWindow as home
 app = QApplication([])
 
-window = QMainWindow()
-header = ["id,title","subtitle","price"]
-data = []
-ui = circuit()
-ui.setupUi(MainWindow=window,header=header,data=data)
+window = QWidget()
+ui = home(window)
 if __name__ == "__main__":
     window.show()
     app.exec()
