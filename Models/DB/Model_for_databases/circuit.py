@@ -144,7 +144,7 @@ class Contact_Model_without_Pydantic():
     number:str | None,
     begining:str | None,
     number_of_person:int | None,
-    total_price:int | None,):
+    total_price:int | None,Completed:int | None):
         self.id = id
         self.name = name,
         self.subject = subject
@@ -154,7 +154,7 @@ class Contact_Model_without_Pydantic():
         self.begining = begining
         self.number_of_person = number_of_person
         self.total_price = total_price
-        
+        self.Completed = Completed
 
     
 class User_of_Database_for_Sqlite(Base):

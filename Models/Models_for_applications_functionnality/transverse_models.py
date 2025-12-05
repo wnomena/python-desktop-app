@@ -1,9 +1,16 @@
 from Controller.returned_circuit_manager import Reterned_Circuit
+from Models.DB.Model_for_databases.circuit import Contact_Model_without_Pydantic
 class Result_model_function:
     def __init__(self,code:int,data:list[Reterned_Circuit],error:str):
         self.code = code
         self.data = data
         self.error = error
+class Result_model_function_for_Contact:
+    def __init__(self,code:int,data:list[Contact_Model_without_Pydantic],error:str):
+        self.code = code
+        self.data = data
+        self.error = error
+
 
 class Four_element_from_Circuit_Table:
     def __init__(self,id:int,title:str,subtitle:str,price:int):
