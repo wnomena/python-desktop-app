@@ -9,21 +9,51 @@
 ################################################################################
 
 from PySide6.QtCore import (QCoreApplication, QDate, QDateTime, QLocale,
-    QMetaObject, QObject, QPoint, QRect,
-    QSize, QTime, QUrl, Qt)
+    QMetaObject, QObject, QPoint, QRect,Qt,
+    QSize, QTime, QUrl, Qt,QAbstractTableModel)
 from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
     QFont, QFontDatabase, QGradient, QIcon,
     QImage, QKeySequence, QLinearGradient, QPainter,
     QPalette, QPixmap, QRadialGradient, QTransform)
 from PySide6.QtWidgets import (QApplication, QHBoxLayout, QHeaderView, QLabel,
     QMainWindow, QPushButton, QSizePolicy, QSpacerItem,
-    QTableWidget, QTableWidgetItem, QVBoxLayout, QWidget)
+    QTableView, QVBoxLayout, QWidget)
+
+from Models.Models_for_applications_functionnality.transverse_models import Four_element_from_Circuit_Table
+class Model_For_TableView(QAbstractTableModel):
+    def __init__(self,parent,header:list[str],list:list,*args):
+        super().__init__(parent,*args)
+        self.header = header
+        self.list = list
+
+
+    def rowCount(self,parent):
+        return len(self.list)
+    
+    def columnCount(self,parent):
+        return len(self.header)
+    
+
+    def data(self, index,role):
+        if not index.isValid():
+            return None
+        elif role != Qt.ItemDataRole.DisplayRole:
+            return None
+
+        return self.mylist[index.row()][index.column()]
+
+    def headerData(self, col, orientation, role):
+        if orientation == Qt.Orientation.Horizontal and role == Qt.ItemDataRole.DisplayRole:
+            return self.header[col]
+
+
 
 class Ui_MainWindow(object):
-    def setupUi(self, MainWindow):
+        
+    def setupUi(self, MainWindow,header:list[str],data:list[Four_element_from_Circuit_Table]):
         if not MainWindow.objectName():
             MainWindow.setObjectName(u"MainWindow")
-        MainWindow.resize(1098, 655)
+        MainWindow.resize(1089, 655)
         sizePolicy = QSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Expanding)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
@@ -203,18 +233,10 @@ class Ui_MainWindow(object):
 
         self.verticalLayout.addWidget(self.label)
 
-        self.for_dynamic_table = QTableWidget(self.centralwidget)
-        self.for_dynamic_table.setObjectName(u"for_dynamic_table")
-        self.for_dynamic_table.verticalHeader().setVisible(False)
-        self.for_dynamic_table.horizontalHeader().setVisible(False)
-        self.for_dynamic_table.setColumnCount(4)
-        self.for_dynamic_table.setRowCount(2)
-        self.for_dynamic_table.setItem(0,0,QTableWidgetItem("Id"))
-        self.for_dynamic_table.setItem(0,1,QTableWidgetItem("Title"))
-        self.for_dynamic_table.setItem(0,2,QTableWidgetItem("Subtitle"))
-        self.for_dynamic_table.setItem(0,3,QTableWidgetItem("Price"))
+        self.tableView = QTableView(self.centralwidget)
+        self.tableView.setObjectName(u"tableView")
 
-        self.verticalLayout.addWidget(self.for_dynamic_table)
+        self.verticalLayout.addWidget(self.tableView)
 
         self.verticalSpacer_2 = QSpacerItem(20, 40, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Expanding)
 

@@ -156,6 +156,7 @@ class Contact_Model_without_Pydantic():
 
     
 class User_of_Database_for_Sqlite(Base):
+    __tablename__="database_info"
     id:Mapped[int] = mapped_column(Integer,primary_key=True)
     database_name:Mapped[str] = mapped_column(String,nullable=False)
     database_password:Mapped[str] = mapped_column(String,nullable=False)
