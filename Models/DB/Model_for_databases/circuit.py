@@ -22,7 +22,8 @@ class Circuit(Base):
     adrenaline = relationship("Adrenaline",back_populates="circuit")
 
 class Circuit_Model:
-    def __init__(self,id:int,
+    def __init__(self,
+        id:int | None,
         title:str,
         subtitle:str,
         description:str,
@@ -51,7 +52,7 @@ class Itinerary(Base):
     circuit = relationship("Circuit",back_populates="itinerary")
 
 class Itinerary_Model:
-    def __init__(self,id:int,
+    def __init__(self,id:int | None,
     place:str,
     order_id:int,
     circuit_id:int):
@@ -69,7 +70,7 @@ class Equipement(Base):
     circuit = relationship("Circuit",back_populates="equipment_needed")
 
 class Equipement_Model:
-    def __init__(self,id:int,
+    def __init__(self,id:int | None,
     equipment:str,
     circuit_id:int):
         self.id = id
@@ -84,7 +85,7 @@ class Included_task_in_Price(Base):
     circuit = relationship("Circuit",back_populates="included_in_price")
 
 class Included_task_in_Price_Model:
-    def __init__(self,id:int,
+    def __init__(self,id:int | None,
     content:str,
     circuit_id:int):
         self.id = id
@@ -99,7 +100,7 @@ class Adrenaline(Base):
     circuit = relationship("Circuit",back_populates="adrenaline")
 
 class Adrenaline_Model:
-    def __init__(self,id:int,
+    def __init__(self,id:int | None,
     content:str,
     circuit_id:int):
         self.id = id
@@ -119,7 +120,8 @@ class Contact(Base):
     begining:Mapped[str] = mapped_column(String,nullable=True)
     number_of_person:Mapped[int] = mapped_column(Integer,nullable=True)
     total_price:Mapped[int] = mapped_column(Integer,nullable=True)
-    circuit_id:Mapped[int] = mapped_column(Integer,ForeignKey("circuit.id"),nullable=True) 
+    circuit_id:Mapped[int] = mapped_column(Integer,ForeignKey("circuit.id"),nullable=True)
+    Completed:Mapped[int] = mapped_column(Integer,default=1,nullable=False)
     circuit = relationship("Circuit",back_populates="contact")
 
 class Contact_Model(BaseModel):
