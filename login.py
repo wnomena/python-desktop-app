@@ -15,14 +15,15 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
     QFont, QFontDatabase, QGradient, QIcon,
     QImage, QKeySequence, QLinearGradient, QPainter,
     QPalette, QPixmap, QRadialGradient, QTransform)
-from PySide6.QtWidgets import (QApplication, QHBoxLayout, QPushButton, QSizePolicy,
+from PySide6.QtWidgets import (QApplication, QHBoxLayout, QPushButton, QSizePolicy,QMainWindow,
     QSpacerItem, QWidget)
 
-class Ui_Form(object):
+class Ui_Form(QWidget):
+    def __init__(self,Wndow:QMainWindow):
+        super().__init__()
+        self.setupUi(Wndow)
+
     def setupUi(self, Form):
-        if not Form.objectName():
-            Form.setObjectName(u"Form")
-        Form.resize(603, 300)
         Form.setStyleSheet(u"background-color: rgb(154, 153, 150);")
         self.horizontalLayout = QHBoxLayout(Form)
         self.horizontalLayout.setObjectName(u"horizontalLayout")
@@ -33,11 +34,11 @@ class Ui_Form(object):
         self.pushButton = QPushButton(Form)
         self.pushButton.setObjectName(u"pushButton")
         self.pushButton.setEnabled(True)
-        sizePolicy = QSizePolicy(QSizePolicy.Policy.Fixed, QSizePolicy.Policy.Fixed)
-        sizePolicy.setHorizontalStretch(30)
-        sizePolicy.setVerticalStretch(50)
-        sizePolicy.setHeightForWidth(self.pushButton.sizePolicy().hasHeightForWidth())
-        self.pushButton.setSizePolicy(sizePolicy)
+        sizePolicy1 = QSizePolicy(QSizePolicy.Policy.Fixed, QSizePolicy.Policy.Fixed)
+        sizePolicy1.setHorizontalStretch(30)
+        sizePolicy1.setVerticalStretch(50)
+        sizePolicy1.setHeightForWidth(self.pushButton.sizePolicy().hasHeightForWidth())
+        self.pushButton.setSizePolicy(sizePolicy1)
         self.pushButton.setMinimumSize(QSize(300, 0))
         palette = QPalette()
         brush = QBrush(QColor(255, 255, 255, 255))

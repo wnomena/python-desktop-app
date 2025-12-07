@@ -19,16 +19,7 @@ from PySide6.QtWidgets import (QApplication, QHBoxLayout, QMainWindow, QPushButt
     QSizePolicy, QSpacerItem, QWidget)
 from configuration import Ui_Configuration
 
-class Ui_MainWindow(object):
-    
-    def __init__(self,MainWindow:QMainWindow):
-        super(Ui_MainWindow,self).__init__()
-        self.stack = QStackedWidget()
-        self.stack.addWidget(Ui_Configuration().setupUi(MainWindow))
-        self.setupUi(MainWindow)
-        
-    def click(self):
-        self.stack.currentIndex(0)
+class Ui_MainWindow(object):        
     def setupUi(self, MainWindow):
         if not MainWindow.objectName():
             MainWindow.setObjectName(u"MainWindow")
@@ -54,7 +45,6 @@ class Ui_MainWindow(object):
 
 
         #fonction pour une tentative de changement de page
-        self.pushButton.clicked(self.click)
         palette = QPalette()
         brush = QBrush(QColor(255, 255, 255, 255))
         brush.setStyle(Qt.BrushStyle.SolidPattern)

@@ -44,7 +44,7 @@ def Get_All_Included_In_Price(engine) -> list[Included_task_in_Price_Model]:
 def Insert_All_Tour(engine,data:Circuit_Model) -> bool:
     with Session(engine) as session:
         try:
-            session.add(Circuit(title=data.title,subtitle=data.subtitle,description=data.description,duration=data.duration,difficulty=data.difficulty,price=data.price,image=data.price,image=data.image))
+            session.add(Circuit(title=data.title,subtitle=data.subtitle,description=data.description,duration=data.duration,difficulty=data.difficulty,price=data.price,image=data.image))
             session.commit()
             return True
         except Exception as Error:
