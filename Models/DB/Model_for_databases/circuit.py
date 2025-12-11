@@ -164,10 +164,12 @@ class User_of_Database_for_Sqlite(Base):
     database_password:Mapped[str] = mapped_column(String,nullable=False)
     database_user:Mapped[str] = mapped_column(String,nullable=False)
     database_port:Mapped[int] = mapped_column(Integer,nullable=False)
+    database_hosting:Mapped[str] = mapped_column(String,nullable=False)
     
 class User_of_Database_for_Sqlite_Mode:
-    def __init__(self,id:int,database_name:str,database_password:str,database_user:str,database_port:int):
+    def __init__(self,id:int,database_hosting:str,database_name:str,database_password:str,database_user:str,database_port:int):
         self.id = id
+        self.database_hosting = database_hosting
         self.database_name = database_name
         self.database_password = database_password
         self.database_user = database_user

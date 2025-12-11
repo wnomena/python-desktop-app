@@ -7,4 +7,4 @@ class Mysql_Engine:
 class Sqlite_Engine:
     engine:Engine = None
     def __init__(self):
-        self.engine = create_engine("sqlite3://")
+        self.engine = create_engine("sqlite:///index.db")

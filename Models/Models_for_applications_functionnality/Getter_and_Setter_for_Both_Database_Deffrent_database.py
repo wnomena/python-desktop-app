@@ -1,10 +1,10 @@
 from functools import reduce
 from types import SimpleNamespace
-from sqlalchemy import select
+from sqlalchemy import insert, select
 from sqlalchemy.orm import Session
 from concurrent.futures import ProcessPoolExecutor
 from Controller.returned_circuit_manager import Group_element_to_simpllify_render, Reterned_Circuit
-from Models.DB.Model_for_databases.circuit import Adrenaline, Adrenaline_Model, Circuit, Circuit_Model, Contact, Contact_Model_without_Pydantic, Equipement, Equipement_Model, Included_task_in_Price, Included_task_in_Price_Model, Itinerary, Itinerary_Model
+from Models.DB.Model_for_databases.circuit import Adrenaline, Adrenaline_Model, Circuit, Circuit_Model, Contact, Contact_Model_without_Pydantic, Equipement, Equipement_Model, Included_task_in_Price, Included_task_in_Price_Model, Itinerary, Itinerary_Model, User_of_Database_for_Sqlite, User_of_Database_for_Sqlite_Mode
 from Models.DB.pool_creation import Mysql_Engine, Sqlite_Engine
 from Models.Models_for_applications_functionnality.Get_All_Contact import Get_all_Contact
 from Models.Models_for_applications_functionnality.Get_One_Circuit_With_Jointure import Get_One_Circuit_by_Id
@@ -153,9 +153,9 @@ class Initialization_instance(Mysql_Engine,Sqlite_Engine):
         return reduce(lambda x,y : x or y,BoolList)
     
 
-class Get_Value(Sqlite_Engine):
+class Sqlite_Interaction(Sqlite_Engine):
     def __init__(self):
-        super().__init__(self)
+        super().__init__()
     def Gets(self):
         list_of_circuit:list[Four_element_from_Circuit_Table] = []
         data = Get_All_Tour(self.engine)
@@ -177,7 +177,16 @@ class Get_Value(Sqlite_Engine):
             usable_value:list[Contact_Model_without_Pydantic] = [SimpleNamespace(**element.__dict__) for element  in session.scalars(contact_list)]
             return usable_value
 
-
+    def Set_Database_Information(self,User_and_Database:User_of_Database_for_Sqlite_Mode) -> bool:
+        try:
+            with Session(self.engine) as conn:
+                print(User_and_Database.__dict__)
+                conn.add(User_of_Database_for_Sqlite(database_hosting=User_and_Database.database_hosting,database_name=User_and_Database.database_name,database_password=User_and_Database.database_password,database_port=User_and_Database.database_port,database_user=User_and_Database.database_user))
+                conn.commit()
+                return True
+        except Exception as err :
+            print(err)
+            return False
 class Contact_Set_Interval(Mysql_Engine):
     def __init__(self):
         super().__init__()
