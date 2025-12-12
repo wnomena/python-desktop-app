@@ -13,7 +13,7 @@ from Models.Models_for_applications_functionnality.Getter_and_Setter_for_Both_Da
 class Initialization_instance(Mysql_Engine,Sqlite_Engine):
     data_to_migrate:Get_all_Model = None
     def __init__(self):
-        super().__init__(self)
+        #super().__init__(self)
         self.data_to_migrate = Get_ALl_Circuit(self._engine)
         Insert_All_Tour(self.engine,data=self.data_to_migrate.circuit)
         Insert_All_Itinerary(self.engine,self.engine,data=self.data_to_migrate.itinerary)

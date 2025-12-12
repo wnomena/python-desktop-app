@@ -5,7 +5,7 @@ from Controller.returned_circuit_manager import Reterned_Circuit
 from Models.DB.Model_for_databases.circuit import Adrenaline, Adrenaline_Model, Circuit, Circuit_Model, Equipement, Equipement_Model, Included_task_in_Price, Included_task_in_Price_Model, Itinerary, Itinerary_Model
 from Models.Models_for_applications_functionnality.transverse_models import Result_model_function
 class Get_all_Model:
-    def __init__(self,circuit:list[Circuit_Model],itinerary:list[Itinerary_Model],equipement:list[Equipement_Model],Included:list[Included_task_in_Price_Model],Adrenaline:list[Adrenaline_Model]):
+    def __init__(self,circuit:list[Circuit_Model] | None,itinerary:list[Itinerary_Model] | None,equipement:list[Equipement_Model] | None,Included:list[Included_task_in_Price_Model] | None,Adrenaline:list[Adrenaline_Model] | None):
         self.circuit = circuit
         self.itinerary = itinerary
         self.equipment = equipement
@@ -48,7 +48,7 @@ class Get_all_Model:
         return True
     
 def Get_ALl_Circuit(engine) -> Get_all_Model:
-    data_to_returned = Get_all_Model()
+    data_to_returned: Get_all_Model = None
     with Session(engine) as session:
         data_joined = select(Circuit,Itinerary,Equipement,Included_task_in_Price,Adrenaline).outerjoin(Circuit.itinerary).outerjoin(Circuit.equipment_needed).outerjoin(Circuit.included_in_price).outerjoin(Circuit.adrenaline)
         data = session.execute(data_joined).all()
