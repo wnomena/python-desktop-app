@@ -4,7 +4,7 @@ from sqlalchemy.orm import Session
 from Models.DB.Model_for_databases.circuit import Contact, Contact_Model, Contact_Model_without_Pydantic
 from Models.Models_for_applications_functionnality.transverse_models import Result_model_function
 
-def Get_all_Contact(engine,id,callback):
+def Get_one_Contact(engine,id,callback):
     try:
         with Session(engine) as session:
             contact_list = select(Contact).where(Contact.id == id)
