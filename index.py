@@ -27,7 +27,7 @@ class Diffrent_MainWindow(QMainWindow):
         Bool:bool = sqlite_instance.Set_Database_Information(database_info)
         print(Bool)
         if Bool:
-            self.close()
+            
         
 
 window = QMainWindow()

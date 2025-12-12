@@ -8,6 +8,7 @@ from Models.DB.Model_for_databases.circuit import Adrenaline, Adrenaline_Model, 
 from Models.DB.pool_creation import Mysql_Engine, Sqlite_Engine
 from Models.Models_for_applications_functionnality.Get_All_Contact import Get_all_Contact
 from Models.Models_for_applications_functionnality.Get_One_Circuit_With_Jointure import Get_One_Circuit_by_Id
+from Models.Models_for_applications_functionnality.Get_all_Circuit import Get_ALl_Circuit, Get_all_Model
 from Models.Models_for_applications_functionnality.transverse_models import Four_element_from_Circuit_Table, Result_model_function
 
 def Get_All_Tour(engine) -> list[Circuit_Model]:
@@ -101,68 +102,9 @@ def Insert_All_Included_In_Price(engine,data:Included_task_in_Price_Model)  -> b
 class Initialization_instance(Mysql_Engine,Sqlite_Engine):
     def __init__(self):
         super().__init__(self)
-        with ProcessPoolExecutor() as executor:
-            executor.submit(self.Circuit_Migration)
-            executor.submit(self.Contact_Migration)
-            executor.submit(self.Itinerary_Migration)
-            executor.submit(self.Adrenaline_Migration)
-            executor.submit(self.Equipement_Migration)
-            executor.submit(self.Include_In_Price_Migration)
-    
-    def Circuit_Migration(self)   -> bool :
-        BoolList:list[bool] = None
-        mysql_data = Get_All_Tour(self._engine)
-        for element in mysql_data:
-            temp = Insert_All_Tour(self.engine,element)
-            BoolList.append(temp)
-        return reduce(lambda x,y : x or y,BoolList)
-    def Contact_Migration(self)   -> bool :
-        BoolList:list[bool] = None
-        mysql_data = Get_All_Contact(self._engine)
-        for element in mysql_data:
-            temp = Insert_All_Contact(self.engine,element)
-            BoolList.append(temp)
-        return reduce(lambda x,y : x or y,BoolList)
-    def Itinerary_Migration(self)   -> bool :
-        BoolList:list[bool] = None
-        mysql_data = Get_All_Itinerary(self._engine)
-        for element in mysql_data:
-            temp = Insert_All_Itinerary(self.engine,element)
-            BoolList.append(temp)
-        return reduce(lambda x,y : x or y,BoolList)
-    def Equipement_Migration(self)   -> bool :
-        BoolList:list[bool] = None
-        mysql_data = Get_All_Equipment(self._engine)
-        for element in mysql_data:
-            temp = Insert_All_Equipment(self.engine,element)
-            BoolList.append(temp)
-        return reduce(lambda x,y : x or y,BoolList)
-    def Adrenaline_Migration(self)   -> bool :
-        BoolList:list[bool] = None
-        mysql_data = Get_All_Adrenaline(self._engine)
-        for element in mysql_data:
-            temp = Insert_All_Adrenaline(self.engine,element)
-            BoolList.append(temp)
-        return reduce(lambda x,y : x or y,BoolList)
-    def Include_In_Price_Migration(self)   -> bool :
-        BoolList:list[bool] = None
-        mysql_data = Get_All_Included_In_Price(self._engine)
-        for element in mysql_data:
-            temp = Insert_All_Included_In_Price(self.engine,element)
-            BoolList.append(temp)
-        return reduce(lambda x,y : x or y,BoolList)
-    
+        data_to_migrate:Get_all_Model = Get_ALl_Circuit(self._engine)
 
-class Sqlite_Interaction(Sqlite_Engine):
-    def __init__(self):
-        super().__init__()
-    def Gets(self):
-        list_of_circuit:list[Four_element_from_Circuit_Table] = []
-        data = Get_All_Tour(self.engine)
-        for element in data:
-            list_of_circuit.append(Four_element_from_Circuit_Table(id=element.id,title=element.title,subtitle=element.subtitle,price=element.price))
-        return list_of_circuit
-    
+
     def Get_One(self,id:int)  -> list[Reterned_Circuit]:
         list_of_circuit:list[Reterned_Circuit] = []
         data_brute_from_sqlite = Get_One_Circuit_by_Id(self.engine,id).data

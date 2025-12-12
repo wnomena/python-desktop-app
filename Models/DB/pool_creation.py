@@ -1,4 +1,5 @@
 from sqlalchemy import Engine, create_engine
+import os
 class Mysql_Engine:
     _engine:Engine = None
     def __init__(self):
@@ -7,4 +8,5 @@ class Mysql_Engine:
 class Sqlite_Engine:
     engine:Engine = None
     def __init__(self):
+        print(os.path.abspath("."))
         self.engine = create_engine("sqlite:///index.db")

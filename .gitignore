@@ -1,4 +1,6 @@
 desktop-app-modules
 *.ui
 *.xml
+*db
+*.sql
 __pycache__
