@@ -8,5 +8,5 @@ from Models.Models_for_applications_functionnality.transverse_models import Resu
 def Get_all_Contact(engine) -> list[Contact_Model_without_Pydantic]:
     with Session(engine) as session:
         contact_list = select(Contact)
-        return [Contact_Model_without_Pydantic(id=element.id,subject=element.subject,body=element.body,mail=element.mail,number=element.number,begining=element.begining,number_of_person=element.number_of_person,total_price=element.total_price,Completed=element.Completed) for element  in session.scalars(contact_list)]
+        return [Contact_Model_without_Pydantic(id=element.id,name=element.name,subject=element.subject,body=element.body,mail=element.mail,number=element.number,begining=element.begining,number_of_person=element.number_of_person,total_price=element.total_price,Completed=element.Completed) for element  in session.scalars(contact_list)]
             

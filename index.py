@@ -2,8 +2,7 @@ from PySide6.QtWidgets import QApplication, QMainWindow
 from Controller.initiation_class import Initialization_instance
 from Models.DB.Model_for_databases.circuit import User_of_Database_for_Sqlite_Mode
 from configration import Ui_Madagascar_Tours as Configuration
-from Tours import Ui_Madagascar_Tours as Home
-from login import Ui_Form
+from MainWindow2 import Ui_Madagascar_Tours as Home
 app = QApplication([])
 
 
@@ -15,7 +14,7 @@ class Diffrent_MainWindow(QMainWindow):
 
     def __init__(self,window:QMainWindow):
         self.window_instance = window
-        self.COnfiguration_UI.setupUi(self.window_instance)
+        self.Tours_Manager_UI.setupUi(self.window_instance)
         #self.COnfiguration_UI.submit_and_close_btn.clicked.connect(self.configuration_submit)
 
     def configuration_submit(self):

@@ -48,10 +48,10 @@ class Get_all_Model:
         return True
     
 def Get_ALl_Circuit(engine) -> Get_all_Model:
-    data_to_returned: Get_all_Model = None
+    data_to_returned: Get_all_Model = Get_all_Model([],[],[],[],[])
     with Session(engine) as session:
         data_joined = select(Circuit,Itinerary,Equipement,Included_task_in_Price,Adrenaline).outerjoin(Circuit.itinerary).outerjoin(Circuit.equipment_needed).outerjoin(Circuit.included_in_price).outerjoin(Circuit.adrenaline)
-        data = session.execute(data_joined)
+        data = session.execute(data_joined).all()
         for a,b,c,d,e in data:
             circuit_dict = a.__dict__
             data_to_returned.insert_circuit(Circuit_Model(id=circuit_dict["id"],title=circuit_dict["title"],subtitle=circuit_dict["subtitle"],description=circuit_dict["description"],duration=circuit_dict["duration"],difficulty=circuit_dict["difficulty"],price=circuit_dict["price"],image=circuit_dict["image"]))
