@@ -16,8 +16,8 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
     QImage, QKeySequence, QLinearGradient, QPainter,
     QPalette, QPixmap, QRadialGradient, QTransform)
 from PySide6.QtWidgets import (QApplication, QHBoxLayout, QHeaderView, QLabel,
-    QPushButton, QSizePolicy, QSpacerItem, QTableView,
-    QVBoxLayout, QWidget)
+    QPushButton, QSizePolicy, QSpacerItem, QStackedWidget,
+    QTableView, QVBoxLayout, QWidget)
 
 class Ui_Madagascar_Tours(object):
     def setupUi(self, Madagascar_Tours):
@@ -27,9 +27,18 @@ class Ui_Madagascar_Tours(object):
         Madagascar_Tours.setStyleSheet(u"background-color: rgb(154, 153, 150);")
         self.horizontalLayout = QHBoxLayout(Madagascar_Tours)
         self.horizontalLayout.setObjectName(u"horizontalLayout")
+        self.stackedWidget = QStackedWidget(Madagascar_Tours)
+        self.stackedWidget.setObjectName(u"stackedWidget")
+        self.stackedWidget.setLayoutDirection(Qt.LayoutDirection.LeftToRight)
+        self.page = QWidget()
+        self.page.setObjectName(u"page")
+        self.page.setEnabled(False)
+        self.page.setMinimumSize(QSize(759, 6))
+        self.verticalLayout_3 = QVBoxLayout(self.page)
+        self.verticalLayout_3.setObjectName(u"verticalLayout_3")
         self.verticalLayout = QVBoxLayout()
         self.verticalLayout.setObjectName(u"verticalLayout")
-        self.label = QLabel(Madagascar_Tours)
+        self.label = QLabel(self.page)
         self.label.setObjectName(u"label")
         font = QFont()
         font.setBold(True)
@@ -39,7 +48,7 @@ class Ui_Madagascar_Tours(object):
 
         self.verticalLayout.addWidget(self.label)
 
-        self.tableView = QTableView(Madagascar_Tours)
+        self.tableView = QTableView(self.page)
         self.tableView.setObjectName(u"tableView")
 
         self.verticalLayout.addWidget(self.tableView)
@@ -50,32 +59,50 @@ class Ui_Madagascar_Tours(object):
 
         self.horizontalLayout_2 = QHBoxLayout()
         self.horizontalLayout_2.setObjectName(u"horizontalLayout_2")
-        self.total_number_of_tour = QLabel(Madagascar_Tours)
-        self.total_number_of_tour.setObjectName(u"total_number_of_tour")
-        font1 = QFont()
-        font1.setPointSize(13)
-        font1.setBold(True)
-        self.total_number_of_tour.setFont(font1)
-        self.total_number_of_tour.setStyleSheet(u"color: rgb(255, 255, 255);")
-
-        self.horizontalLayout_2.addWidget(self.total_number_of_tour)
-
         self.horizontalSpacer = QSpacerItem(40, 20, QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Minimum)
 
         self.horizontalLayout_2.addItem(self.horizontalSpacer)
 
-        self.add_new_tour = QPushButton(Madagascar_Tours)
-        self.add_new_tour.setObjectName(u"add_new_tour")
-        self.add_new_tour.setStyleSheet(u"background-color: rgb(38, 162, 105);\n"
-"color: rgb(255, 255, 255);")
+        self.ajout_de_nouveau_circuit = QPushButton(self.page)
+        self.ajout_de_nouveau_circuit.setObjectName(u"ajout_de_nouveau_circuit")
+        font1 = QFont()
+        font1.setBold(False)
+        self.ajout_de_nouveau_circuit.setFont(font1)
+        self.ajout_de_nouveau_circuit.setStyleSheet(u"background-color: rgb(46, 194, 126);\n"
+"color: rgb(36, 31, 49);")
 
-        self.horizontalLayout_2.addWidget(self.add_new_tour)
+        self.horizontalLayout_2.addWidget(self.ajout_de_nouveau_circuit)
 
 
         self.verticalLayout.addLayout(self.horizontalLayout_2)
 
 
-        self.horizontalLayout.addLayout(self.verticalLayout)
+        self.verticalLayout_3.addLayout(self.verticalLayout)
+
+        self.stackedWidget.addWidget(self.page)
+        self.principale = QWidget()
+        self.principale.setObjectName(u"principale")
+        self.verticalLayout_4 = QVBoxLayout(self.principale)
+        self.verticalLayout_4.setObjectName(u"verticalLayout_4")
+        self.label_2 = QLabel(self.principale)
+        self.label_2.setObjectName(u"label_2")
+        self.label_2.setFont(font)
+        self.label_2.setStyleSheet(u"background-color: rgb(28, 113, 216);")
+
+        self.verticalLayout_4.addWidget(self.label_2)
+
+        self.tableView_2 = QTableView(self.principale)
+        self.tableView_2.setObjectName(u"tableView_2")
+
+        self.verticalLayout_4.addWidget(self.tableView_2)
+
+        self.verticalSpacer_3 = QSpacerItem(20, 40, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Expanding)
+
+        self.verticalLayout_4.addItem(self.verticalSpacer_3)
+
+        self.stackedWidget.addWidget(self.principale)
+
+        self.horizontalLayout.addWidget(self.stackedWidget)
 
         self.widget = QWidget(Madagascar_Tours)
         self.widget.setObjectName(u"widget")
@@ -285,14 +312,20 @@ class Ui_Madagascar_Tours(object):
 
         self.retranslateUi(Madagascar_Tours)
 
+        self.stackedWidget.setCurrentIndex(0)
+
+
         QMetaObject.connectSlotsByName(Madagascar_Tours)
     # setupUi
 
     def retranslateUi(self, Madagascar_Tours):
         Madagascar_Tours.setWindowTitle(QCoreApplication.translate("Madagascar_Tours", u"Madagascar_Tours", None))
-        self.label.setText(QCoreApplication.translate("Madagascar_Tours", u"Les Circuits", None))
-        self.total_number_of_tour.setText(QCoreApplication.translate("Madagascar_Tours", u"Total: 0", None))
-        self.add_new_tour.setText(QCoreApplication.translate("Madagascar_Tours", u"Ajouter un nouveau circuit", None))
+#if QT_CONFIG(whatsthis)
+        self.page.setWhatsThis(QCoreApplication.translate("Madagascar_Tours", u"<html><head/><body><p>dfgdfgdf</p></body></html>", None))
+#endif // QT_CONFIG(whatsthis)
+        self.label.setText(QCoreApplication.translate("Madagascar_Tours", u"Circuits", None))
+        self.ajout_de_nouveau_circuit.setText(QCoreApplication.translate("Madagascar_Tours", u"Ajouter un nouveau circuit", None))
+        self.label_2.setText(QCoreApplication.translate("Madagascar_Tours", u"Contacts", None))
         self.pushButton.setText(QCoreApplication.translate("Madagascar_Tours", u"Circuits", None))
         self.pushButton_2.setText(QCoreApplication.translate("Madagascar_Tours", u"Contact", None))
         self.pushButton_3.setText(QCoreApplication.translate("Madagascar_Tours", u"Configuration", None))
