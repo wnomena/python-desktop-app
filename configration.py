@@ -92,7 +92,6 @@ class Ui_Madagascar_Tours(object):
 
         self.password_input = QLineEdit(self.centralwidget)
         self.password_input.setObjectName(u"password_input")
-
         self.formLayout.setWidget(4, QFormLayout.ItemRole.FieldRole, self.password_input)
 
         self.port_label = QLabel(self.centralwidget)
@@ -142,3 +141,4 @@ class Ui_Madagascar_Tours(object):
         self.Nom_de_la_base_de_donnees_input.setPlaceholderText(QCoreApplication.translate("Madagascar_Tours", u"caponmad_caponmada", None))
         self.hosting_database_input.setPlaceholderText(QCoreApplication.translate("Madagascar_Tours", u"caponmada.mg / 192.168.1.1", None))
     # retranslateUi
+        

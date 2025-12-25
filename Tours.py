@@ -48,10 +48,10 @@ class Ui_Madagascar_Tours(object):
 
         self.verticalLayout.addWidget(self.label)
 
-        self.tableView = QTableView(self.page)
-        self.tableView.setObjectName(u"tableView")
+        self.circuits_list_in_tableview = QTableView(self.page)
+        self.circuits_list_in_tableview.setObjectName(u"circuits_list_in_tableview")
 
-        self.verticalLayout.addWidget(self.tableView)
+        self.verticalLayout.addWidget(self.circuits_list_in_tableview)
 
         self.verticalSpacer_2 = QSpacerItem(20, 40, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Expanding)
 
@@ -91,10 +91,10 @@ class Ui_Madagascar_Tours(object):
 
         self.verticalLayout_4.addWidget(self.label_2)
 
-        self.tableView_2 = QTableView(self.principale)
-        self.tableView_2.setObjectName(u"tableView_2")
+        self.contact_list_in_table_view = QTableView(self.principale)
+        self.contact_list_in_table_view.setObjectName(u"contact_list_in_table_view")
 
-        self.verticalLayout_4.addWidget(self.tableView_2)
+        self.verticalLayout_4.addWidget(self.contact_list_in_table_view)
 
         self.verticalSpacer_3 = QSpacerItem(20, 40, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Expanding)
 
@@ -195,8 +195,8 @@ class Ui_Madagascar_Tours(object):
         self.widget.setPalette(palette)
         self.verticalLayout_2 = QVBoxLayout(self.widget)
         self.verticalLayout_2.setObjectName(u"verticalLayout_2")
-        self.pushButton = QPushButton(self.widget)
-        self.pushButton.setObjectName(u"pushButton")
+        self.sxitch_to_circuit_UI = QPushButton(self.widget)
+        self.sxitch_to_circuit_UI.setObjectName(u"sxitch_to_circuit_UI")
         palette1 = QPalette()
         palette1.setBrush(QPalette.ColorGroup.Active, QPalette.ColorRole.WindowText, brush2)
         palette1.setBrush(QPalette.ColorGroup.Active, QPalette.ColorRole.Button, brush1)
@@ -227,13 +227,13 @@ class Ui_Madagascar_Tours(object):
 #if QT_VERSION >= QT_VERSION_CHECK(5, 12, 0)
         palette1.setBrush(QPalette.ColorGroup.Disabled, QPalette.ColorRole.PlaceholderText, brush10)
 #endif
-        self.pushButton.setPalette(palette1)
-        self.pushButton.setStyleSheet(u"color: rgb(255, 255, 255);")
+        self.sxitch_to_circuit_UI.setPalette(palette1)
+        self.sxitch_to_circuit_UI.setStyleSheet(u"color: rgb(255, 255, 255);")
 
-        self.verticalLayout_2.addWidget(self.pushButton)
+        self.verticalLayout_2.addWidget(self.sxitch_to_circuit_UI)
 
-        self.pushButton_2 = QPushButton(self.widget)
-        self.pushButton_2.setObjectName(u"pushButton_2")
+        self.switch_to_contact_UI = QPushButton(self.widget)
+        self.switch_to_contact_UI.setObjectName(u"switch_to_contact_UI")
         palette2 = QPalette()
         palette2.setBrush(QPalette.ColorGroup.Active, QPalette.ColorRole.WindowText, brush2)
         palette2.setBrush(QPalette.ColorGroup.Active, QPalette.ColorRole.Button, brush1)
@@ -262,13 +262,13 @@ class Ui_Madagascar_Tours(object):
 #if QT_VERSION >= QT_VERSION_CHECK(5, 12, 0)
         palette2.setBrush(QPalette.ColorGroup.Disabled, QPalette.ColorRole.PlaceholderText, brush10)
 #endif
-        self.pushButton_2.setPalette(palette2)
-        self.pushButton_2.setStyleSheet(u"color: rgb(255, 255, 255);")
+        self.switch_to_contact_UI.setPalette(palette2)
+        self.switch_to_contact_UI.setStyleSheet(u"color: rgb(255, 255, 255);")
 
-        self.verticalLayout_2.addWidget(self.pushButton_2)
+        self.verticalLayout_2.addWidget(self.switch_to_contact_UI)
 
-        self.pushButton_3 = QPushButton(self.widget)
-        self.pushButton_3.setObjectName(u"pushButton_3")
+        self.show_configuration_UI = QPushButton(self.widget)
+        self.show_configuration_UI.setObjectName(u"show_configuration_UI")
         palette3 = QPalette()
         palette3.setBrush(QPalette.ColorGroup.Active, QPalette.ColorRole.WindowText, brush2)
         palette3.setBrush(QPalette.ColorGroup.Active, QPalette.ColorRole.Button, brush1)
@@ -297,10 +297,10 @@ class Ui_Madagascar_Tours(object):
 #if QT_VERSION >= QT_VERSION_CHECK(5, 12, 0)
         palette3.setBrush(QPalette.ColorGroup.Disabled, QPalette.ColorRole.PlaceholderText, brush10)
 #endif
-        self.pushButton_3.setPalette(palette3)
-        self.pushButton_3.setStyleSheet(u"color: rgb(255, 255, 255);")
+        self.show_configuration_UI.setPalette(palette3)
+        self.show_configuration_UI.setStyleSheet(u"color: rgb(255, 255, 255);")
 
-        self.verticalLayout_2.addWidget(self.pushButton_3)
+        self.verticalLayout_2.addWidget(self.show_configuration_UI)
 
         self.verticalSpacer = QSpacerItem(20, 40, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Expanding)
 
@@ -312,7 +312,7 @@ class Ui_Madagascar_Tours(object):
 
         self.retranslateUi(Madagascar_Tours)
 
-        self.stackedWidget.setCurrentIndex(0)
+        self.stackedWidget.setCurrentIndex(1)
 
 
         QMetaObject.connectSlotsByName(Madagascar_Tours)
@@ -326,8 +326,8 @@ class Ui_Madagascar_Tours(object):
         self.label.setText(QCoreApplication.translate("Madagascar_Tours", u"Circuits", None))
         self.ajout_de_nouveau_circuit.setText(QCoreApplication.translate("Madagascar_Tours", u"Ajouter un nouveau circuit", None))
         self.label_2.setText(QCoreApplication.translate("Madagascar_Tours", u"Contacts", None))
-        self.pushButton.setText(QCoreApplication.translate("Madagascar_Tours", u"Circuits", None))
-        self.pushButton_2.setText(QCoreApplication.translate("Madagascar_Tours", u"Contact", None))
-        self.pushButton_3.setText(QCoreApplication.translate("Madagascar_Tours", u"Configuration", None))
+        self.sxitch_to_circuit_UI.setText(QCoreApplication.translate("Madagascar_Tours", u"Circuits", None))
+        self.switch_to_contact_UI.setText(QCoreApplication.translate("Madagascar_Tours", u"Contact", None))
+        self.show_configuration_UI.setText(QCoreApplication.translate("Madagascar_Tours", u"Configuration", None))
     # retranslateUi
 

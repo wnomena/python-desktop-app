@@ -312,7 +312,7 @@ class Ui_Madagascar_Tours(object):
 
         self.retranslateUi(Madagascar_Tours)
 
-        self.stackedWidget.setCurrentIndex(0)
+        self.stackedWidget.setCurrentIndex(1)
 
 
         QMetaObject.connectSlotsByName(Madagascar_Tours)
