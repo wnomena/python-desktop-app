@@ -1,19 +1,29 @@
+from concurrent.futures import ThreadPoolExecutor
+from sqlalchemy import Engine, create_engine, select
 from sqlalchemy.orm import Session
 
 
 from Controller.returned_circuit_manager import Group_element_to_simpllify_render, Reterned_Circuit
 from Models.DB.Model_for_databases.circuit import User_of_Database_for_Sqlite, User_of_Database_for_Sqlite_Mode
-from Models.DB.pool_creation import Mysql_Engine, Sqlite_Engine
+from Models.DB.pool_creation import Sqlite_Engine
 from Models.Models_for_applications_functionnality.Get_One_Circuit_With_Jointure import Get_One_Circuit_by_Id
 from Models.Models_for_applications_functionnality.Get_All_Contact import Get_all_Contact
 from Models.Models_for_applications_functionnality.Get_all_Circuit import Get_ALl_Circuit, Get_all_Model
 from Models.Models_for_applications_functionnality.Getter_and_Setter_for_Both_Database_Deffrent_database import Insert_All_Contact, Insert_All_Equipment, Insert_All_Included_In_Price, Insert_All_Itinerary, Insert_All_Tour
 
 
-class Initialization_instance(Mysql_Engine,Sqlite_Engine):
+class Initialization_instance(Sqlite_Engine):
     data_to_migrate:Get_all_Model = None
+    _engine:Engine = None
     def __init__(self):
-        super().__init__()
+        self.Get_Database_Config(self.engine)
+        if self._engine:
+            with ThreadPoolExecutor(max_workers=1) as exc:
+                exc.submit(self.init_migration)
+
+
+
+    def init_migration(self):
         self.data_to_migrate = Get_ALl_Circuit(self._engine)
         Insert_All_Tour(self.engine,self.data_to_migrate.circuit)
         Insert_All_Itinerary(self.engine,self.data_to_migrate.itinerary)
@@ -33,16 +43,18 @@ class Initialization_instance(Mysql_Engine,Sqlite_Engine):
     def Set_Database_Information(self,User_and_Database:User_of_Database_for_Sqlite_Mode) -> bool:
         try:
             with Session(self.engine) as conn:
-                print(User_and_Database.__dict__)
                 conn.add(User_of_Database_for_Sqlite(database_hosting=User_and_Database.database_hosting,database_name=User_and_Database.database_name,database_password=User_and_Database.database_password,database_port=User_and_Database.database_port,database_user=User_and_Database.database_user))
                 conn.commit()
                 return True
         except Exception as err :
             print(err)
             return False
-class Contact_Set_Interval(Mysql_Engine):
-    def __init__(self):
-        super().__init__()
     
-    def Get_Contact(self):
-        pass
+    def Get_Database_Config(self) -> list[User_of_Database_for_Sqlite_Mode]:
+        with Session(self.engine) as session:
+            query = select(User_of_Database_for_Sqlite)
+            list_of_database_auth = session.scalar(query)
+            if list_of_database_auth:
+                self._engine = create_engine(f"mysql+pymysql://{list_of_database_auth.database_user}:{list_of_database_auth.database_password}@{list_of_database_auth.database_hosting}:3306/{list_of_database_auth.database_name}")
+            else:
+                return None
