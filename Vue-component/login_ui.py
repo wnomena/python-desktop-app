@@ -1,1 +1,0 @@
-# une classe contiendra la page d'acceeuil, Page de connexion

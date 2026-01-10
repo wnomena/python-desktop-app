@@ -9,16 +9,16 @@
 ################################################################################
 
 from PySide6.QtCore import (QCoreApplication, QDate, QDateTime, QLocale,
-    QMetaObject, QObject, QPoint, QRect,
+    QMetaObject, QObject, QPoint, QRect,Slot,
     QSize, QTime, QUrl, Qt)
 from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
-    QFont, QFontDatabase, QGradient, QIcon,
+    QFont, QFontDatabase, QGradient, QIcon,QCloseEvent,
     QImage, QKeySequence, QLinearGradient, QPainter,
     QPalette, QPixmap, QRadialGradient, QTransform)
 from PySide6.QtWidgets import (QApplication, QFormLayout, QLabel, QLineEdit,
     QMainWindow, QPushButton, QSizePolicy, QSpacerItem,
     QVBoxLayout, QWidget)
-
+from PySide6.QtGui import QWindow 
 class Ui_Madagascar_Tours(object):
     def setupUi(self, Madagascar_Tours):
         if not Madagascar_Tours.objectName():
@@ -141,4 +141,7 @@ class Ui_Madagascar_Tours(object):
         self.Nom_de_la_base_de_donnees_input.setPlaceholderText(QCoreApplication.translate("Madagascar_Tours", u"caponmad_caponmada", None))
         self.hosting_database_input.setPlaceholderText(QCoreApplication.translate("Madagascar_Tours", u"caponmada.mg / 192.168.1.1", None))
     # retranslateUi
-        
+
+
+    def closure(self):
+        QWindow.close()

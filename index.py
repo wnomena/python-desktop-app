@@ -2,7 +2,6 @@ from PySide6.QtWidgets import QApplication, QMainWindow
 from PySide6.QtCore import QAbstractTableModel,Qt
 from Controller.initiation_class import Initialization_instance
 from Models.DB.Model_for_databases.circuit import Circuit_Model, User_of_Database_for_Sqlite_Mode
-from Models.Models_for_applications_functionnality.Get_Database_User_from_Sqlite import Get_Database_Config
 from Models.Models_for_applications_functionnality.transverse_models import Four_element_from_Circuit_Table
 from configration import Ui_Madagascar_Tours as Configuration
 from MainWindow import Ui_MainWindow
@@ -35,7 +34,8 @@ class Diffrent_MainWindow(QMainWindow):
 
     def __init__(self,window:QMainWindow):
         self.window_instance = window
-        if len(Get_Database_Config()):
+        Bool = self.data_used.Get_Database_Config()
+        if Bool:
             self.Acceuil.setupUi(self.window_instance)
         else:
             self.COnfiguration_UI.setupUi(self.window_instance)
@@ -45,7 +45,7 @@ class Diffrent_MainWindow(QMainWindow):
         database_info = User_of_Database_for_Sqlite_Mode(database_hosting=self.COnfiguration_UI.hosting_database_input.text(),database_name=self.COnfiguration_UI.Nom_de_la_base_de_donnees_input.text(),database_password=self.COnfiguration_UI.password_input.text(),database_port=self.COnfiguration_UI.port_number_input.text(),database_user=self.COnfiguration_UI.nom_d_utilisateur_input.text(),id=None)
         Bool:bool = self.data_used.Set_Database_Information(database_info)
         if Bool:
-            self.COnfiguration_UI
+            self.COnfiguration_UI.closure()
         
 
 window = QMainWindow()

@@ -1,7 +1,7 @@
 from concurrent.futures import ThreadPoolExecutor
 from sqlalchemy import Engine, create_engine, select
 from sqlalchemy.orm import Session
-
+from sqlalchemy.exc import MultipleResultsFound, NoResultFound
 
 from Controller.returned_circuit_manager import Group_element_to_simpllify_render, Reterned_Circuit
 from Models.DB.Model_for_databases.circuit import User_of_Database_for_Sqlite, User_of_Database_for_Sqlite_Mode
@@ -16,19 +16,19 @@ class Initialization_instance(Sqlite_Engine):
     data_to_migrate:Get_all_Model = None
     _engine:Engine = None
     def __init__(self):
-        self.Get_Database_Config(self.engine)
+        super().__init__()
+        self.Get_Database_Config()
         if self._engine:
-            with ThreadPoolExecutor(max_workers=1) as exc:
-                exc.submit(self.init_migration)
-
+            self.init_migration()
 
 
     def init_migration(self):
-        self.data_to_migrate = Get_ALl_Circuit(self._engine)
-        Insert_All_Tour(self.engine,self.data_to_migrate.circuit)
-        Insert_All_Itinerary(self.engine,self.data_to_migrate.itinerary)
-        Insert_All_Equipment(self.engine,self.data_to_migrate.equipment)
-        Insert_All_Included_In_Price(self.engine,self.data_to_migrate.included)
+        with ThreadPoolExecutor(max_workers=4) as exc:
+            self.data_to_migrate = Get_ALl_Circuit(self._engine)
+            exc.submit(Insert_All_Tour,self.engine,self.data_to_migrate.circuit)
+            exc.submit(Insert_All_Itinerary,self.engine,self.data_to_migrate.itinerary)
+            exc.submit(Insert_All_Equipment,self.engine,self.data_to_migrate.equipment)
+            exc.submit(Insert_All_Included_In_Price,self.engine,self.data_to_migrate.included)
         Insert_All_Contact(self.engine,Get_all_Contact(self._engine))
         
 
@@ -40,21 +40,31 @@ class Initialization_instance(Sqlite_Engine):
             list_of_circuit.append(element)
         return list_of_circuit
     
+
     def Set_Database_Information(self,User_and_Database:User_of_Database_for_Sqlite_Mode) -> bool:
         try:
             with Session(self.engine) as conn:
                 conn.add(User_of_Database_for_Sqlite(database_hosting=User_and_Database.database_hosting,database_name=User_and_Database.database_name,database_password=User_and_Database.database_password,database_port=User_and_Database.database_port,database_user=User_and_Database.database_user))
                 conn.commit()
-                return True
+            self._engine = create_engine(f"mysql+pymysql://{User_and_Database.database_user}:{User_and_Database.database_password}@{User_and_Database.database_hosting}:3306/{User_and_Database.database_name}")    
+            self.init_migration(self)
+            return True
         except Exception as err :
-            print(err)
             return False
-    
-    def Get_Database_Config(self) -> list[User_of_Database_for_Sqlite_Mode]:
+
+
+    def Get_Database_Config(self):
         with Session(self.engine) as session:
             query = select(User_of_Database_for_Sqlite)
-            list_of_database_auth = session.scalar(query)
-            if list_of_database_auth:
-                self._engine = create_engine(f"mysql+pymysql://{list_of_database_auth.database_user}:{list_of_database_auth.database_password}@{list_of_database_auth.database_hosting}:3306/{list_of_database_auth.database_name}")
-            else:
-                return None
+            try:
+                list_of_database_auth = session.scalars(query).one()
+                if list_of_database_auth:
+                    self._engine = create_engine(f"mysql+pymysql://{list_of_database_auth.database_user}:{list_of_database_auth.database_password}@{list_of_database_auth.database_hosting}:3306/{list_of_database_auth.database_name}")
+                    return True
+                else:
+                    self._engine = None
+                    return False
+            except Exception as p:
+                print(p)
+                self._engine = None
+                return False
